@@ -7,7 +7,6 @@ https://github.com/wdcunha/mtds-project-microservice
 This project consists of the following services:
 
 * Database: used Mysql
-* Discovery: used Eureka Service, a Netflix Spring Cloud component that is responsible to handle locations of services, making them visible for the whole group of services;
 * Gateway: used the one native from Minikube;
 * Messaging: Rabbitmq is used to exchange information between services, that is done horizontally;
 * Product-service: microservice developed in java using spring boot, responsible to manage products in its database done in mysql;
