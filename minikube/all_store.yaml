@@ -1,0 +1,313 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rabbitmq
+  labels:
+    app: rabbitmq
+spec:
+  containers:
+  - image: rabbitmq:3-management
+    name: rabbitmq
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: message-queue-external
+spec:
+  selector:
+    app: rabbitmq
+  ports:
+    - name: http
+      protocol: TCP
+      port: 15672
+      nodePort: 30072
+  type: NodePort
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: rabbitmq
+spec:
+  selector:
+    app: rabbitmq
+  ports:
+  - name: port1
+    port: 5672
+  - name: port2
+    port: 15672
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sql-product
+  labels:
+    app: sql-product
+spec:
+  containers:
+  - image: mysql
+    name: sql-product
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: root
+    - name: MYSQL_DATABASE
+      value: productdb
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: sql-product-pod
+spec:
+  selector:
+    app: sql-product
+  ports:
+  - port: 3306
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: sql-product-ext
+spec:
+  selector:
+    app: sql-product
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3306
+      nodePort: 30306
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sql-cart
+  labels:
+    app: sql-cart
+spec:
+  containers:
+  - image: mysql
+    name: sql-cart
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: root
+    - name: MYSQL_DATABASE
+      value: cartdb
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: sql-cart-pod
+spec:
+  selector:
+    app: sql-cart
+  ports:
+  - port: 3306
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: sql-cart-ext
+spec:
+  selector:
+    app: sql
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3306
+      nodePort: 30307
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sql-order
+  labels:
+    app: sql-order
+spec:
+  containers:
+  - image: mysql
+    name: sql-order
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: root
+    - name: MYSQL_DATABASE
+      value: orderdb
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: sql-order-pod
+spec:
+  selector:
+    app: sql-order
+  ports:
+  - port: 3306
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: sql-order-ext
+spec:
+  selector:
+    app: sql-order
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3306
+      nodePort: 30308
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: product-bk
+  labels:
+    app: product-bk
+spec:
+  containers:
+  - image: dafonso/product-bk:r0
+    name: product-bk
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: productbk
+spec:
+  selector:
+    app: product-bk
+  ports:
+  - port: 8071
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: productbk-ext
+spec:
+  selector:
+    app: product-bk
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8071
+      nodePort: 30071
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cart-bk
+  labels:
+    app: cart-bk
+spec:
+  containers:
+  - image: dafonso/cart-bk:r0
+    name: cart-bk
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: cartbk
+spec:
+  selector:
+    app: cart-bk
+  ports:
+  - port: 8072
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: cartbk-ext
+spec:
+  selector:
+    app: cart-bk
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8072
+      nodePort: 30073
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: store
+spec:
+  selector:
+    matchLabels:
+      app: store
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: store
+    spec:
+      containers:
+        - name: store
+          image: dafonso/product-ui:m4
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: product-ui
+spec:
+  selector:
+    app: store
+  ports:
+  - port: 8080
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: productui-ext
+spec:
+  selector:
+    app: store
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      nodePort: 30091
+    - name: http2
+      protocol: TCP
+      port: 8080
+      nodePort: 30092
+  type: NodePort
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-store
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  backend:
+    serviceName: product-ui
+    servicePort: 8080
+

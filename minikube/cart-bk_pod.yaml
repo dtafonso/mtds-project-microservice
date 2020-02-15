@@ -6,7 +6,7 @@ metadata:
     app: cart-bk
 spec:
   containers:
-  - image: dafonso/cart-bk:6
+  - image: dafonso/cart-bk:r0
     name: cart-bk
 
 ---

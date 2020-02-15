@@ -1,0 +1,132 @@
+# abrir cmd com privilégios admin
+
+minikube start --vm-driver=hyperv
+minikube start --vm-driver=hyperv --cpus 4 --memory 4096
+# arranca máquina virtual do minikube com controlador hyper-v
+
+minikube status
+# mostra o estado da máquina virtual
+
+kubectl get all
+# mostra o estado dos pods e serviços (default) no minikube
+
+# é necessário executar os seguintes passos na pasta
+
+kubectl apply -f rabbitmq.yaml
+# instala e aplica o pod do rabbitMQ e seus serviços
+# rabbitMQ fica disponível no endereço http://172.17.150.118:30072/#/
+# dados de acesso: guest / guest
+
+kubectl apply -f mysql.yaml
+# instala e aplica o pod do mysql e serviço deacesso na porta 3306
+# - name: MYSQL_ROOT_PASSWORD
+#   value: password
+# - name: MYSQL_DATABASE
+#   value: database_password
+
+kubectl apply -f producer.yaml
+
+## MINIKUBE INGRESS
+minikube addons enable ingress
+kubectl apply -f ingress.yaml
+
+
+
+##Nginx ingress
+#https://kubernetes.github.io/ingress-nginx/deploy/
+
+## KONG ingress
+https://docs.konghq.com/1.4.x/kong-for-kubernetes/install/
+https://github.com/Kong/kubernetes-ingress-controller/blob/master/docs/deployment/minikube.md
+
+kubectl apply -f https://bit.ly/kong-ingress-dbless
+minikube service -n kong kong-proxy --url
+
+
+###    KONG MINIKUBE    ####
+
+https://github.com/Kong/kubernetes-ingress-controller/blob/master/docs/deployment/minikube.md
+
+https://medium.com/@loschi.pablo/kong-proof-of-concept-using-minikube-5f8ca932083f
+#chocolaty windows
+#no powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+choco install kubernetes-helm
+helm install --version 0.26.1 --name-template kong stable/kong --namespace kong --set ingressController.enabled=true --set image.tag=1.4 --set admin.useTLS=false
+
+#tiller
+kubectl apply -f   https://raw.githubusercontent.com/airwavetechio/helm/master/airwave-deploy-ns.json
+kubectl apply -f   https://raw.githubusercontent.com/airwavetechio/helm/master/airwave-tiller-ns.json
+
+
+helm install --version 0.26.1 --name kong stable/kong --namespace kong --set ingressController.enabled=true --set image.tag=1.4 --set admin.useTLS=false
+
+## ingress alternativas
+https://dzone.com/articles/quick-guide-to-microservices-with-kubernetes-sprin
+https://www.citrix.com/content/dam/citrix/en_us/documents/case-study/tcp-udp-ingress-for-kubernetes.pdf
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.26.2/deploy/static/mandatory.yaml
+
+minikube ip
+http://192.168.46.115:30073/javainuse-rabbitmq/producer?empName=emp2&empId=emp002
+
+kubectl apply -f consumer_producer.yaml
+
+### Springboot ###
+# depois de editar
+## JAVA - maven
+
+mvn clean install
+
+mvn clean deploy
+
+mvnw clean package
+
+
+### DOCKER ###
+# "cd" na pasta onde está o docker file
+# criar container com aplicação JAVA
+docker images
+docker build -t starter-amqp .
+docker tag 2d43688323ca dafonso/starter-amqp:2
+docker push dafonso/starter-amqp:2
+
+
+# criar container com aplicação ANGULAR
+#https://www.codementor.io/@yomateo/angular-docker-dockerize-your-app-in-5-minutes-video-included-oohw2mzuj
+# "cd" na pasta onde está o docker file
+docker images
+docker build -t frontend:0 .
+docker tag 2d43688323ca dafonso/starter-amqp:2
+docker push dafonso/starter-amqp:2
+# a página fica a correr na porta 80 da aplicação -p portaExterna:portaInterna
+$ docker run -p 80:80 my-angular-app:v1
+
+
+#extras
+minikube dashboard (abre página no browser com dasboard das atividades correndo no minikube)
+kubectl exec webapppodenamegoeshere ls  (lista conteúdo na raiz do ambiente deployed)
+kubectl -it exec webapps sh  (abre um terminal bash do ambiente deployed)
+kubectl cluster-info (check the information of our cluster)
+kubectl svc nomeDoPod (abre inspeção do pod)
+
+#MINIKUBE - controlo de versões
+kubectl apply -f webapp
+#verificar estado de deploy
+kubectl rollout status deploy webapp
+#verificar histórico dos deployments
+kubectl rollout history deploy webapp
+#retroceder ao deployment anterior
+kubectl rollout undo deploy webapp
+#retroceder ao deployment anterior - revisão 2
+kubectl rollout undo deploy webapp --to-revision=2
+
+#SQL
+kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
+
+
+#Containers locais DOCKER
+#Rabbitmq
+docker run -p 5672:5672 -p 15672:15672 rabbitmq:3-managment
+#mySQL
+docker run mysql

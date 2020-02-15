@@ -6,7 +6,7 @@ metadata:
     app: product-bk
 spec:
   containers:
-  - image: dafonso/product-bk:9
+  - image: dafonso/product-bk:r0
     name: product-bk
 
 ---
