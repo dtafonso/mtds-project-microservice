@@ -180,7 +180,7 @@ metadata:
     app: productselect-bk
 spec:
   containers:
-  - image: dafonso/productselect:r0
+  - image: dafonso/productselect:r1
     name: productselect-bk
 
 ---
@@ -292,29 +292,29 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: store
+  name: store-ui
 spec:
   selector:
     matchLabels:
-      app: store
+      app: store-ui
   replicas: 2
   template:
     metadata:
       labels:
-        app: store
+        app: store-ui
     spec:
       containers:
-        - name: store
-          image: dafonso/product-ui:m4
+        - name: store-ui
+          image: dafonso/store-ui:r0
 
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: product-ui
+  name: store-ui-int
 spec:
   selector:
-    app: store
+    app: store-ui
   ports:
   - port: 8080
   type: ClusterIP
@@ -323,10 +323,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: productui-ext
+  name: store-ui-ext
 spec:
   selector:
-    app: store
+    app: store-ui
   ports:
     - name: http
       protocol: TCP
@@ -347,6 +347,6 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   backend:
-    serviceName: product-ui
+    serviceName: store-ui-int
     servicePort: 8080
 

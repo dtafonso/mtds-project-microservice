@@ -13,7 +13,7 @@ export class ProductService {
   utils: Utils = new Utils();
 
   url = 'http://loja-microservicos.info:30071/products';
-  urlAddToCart = 'http://loja-microservicos.info:30075/product-rabbitmq/producer';
+  urlAddToCart = 'http://loja-microservicos.info:30075/product-selector-rabbitmq/producer';
 
   // injetando o HttpClient
   constructor(private httpClient: HttpClient) {
