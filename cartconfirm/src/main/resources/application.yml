@@ -1,0 +1,37 @@
+server:
+  port: 8076
+spring:
+  application:
+    name: cartconfirm
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+  main:
+    allow-bean-definition-overriding: true
+  h2:
+    console:
+      enabled: true
+      path: /h2
+
+  datasource:
+    url: jdbc:h2:file:~/test
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+
+  security:
+    basic:
+      enable: false
+    ignored: /**
+
+  jmx:
+    enabled: false
+
+cart-confirm-queue:
+  rabbitmq:
+    exchange: cart-confirm.exchange
+    queue: cart-confirm.queue
+    routingkey: cart-confirm.routingkey
+
