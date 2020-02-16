@@ -13,7 +13,7 @@ export class ShoppingCartService {
   utils: Utils = new Utils();
 
   urlGetCart = 'http://loja-microservicos.info:30073/lastcart';
-  urlSendToOrder = 'http://loja-microservicos.info:30073/cart-rabbitmq/producer';
+  urlSendToOrder = 'http://loja-microservicos.info:30076/cart-rabbitmq/producer';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -26,18 +26,12 @@ export class ShoppingCartService {
   // get cart
   getCarts() {
     return this.httpClient.get(this.urlGetCart);
-      // .pipe(
-      //   catchError(this.utils.handleError)
-      // );
   }
 
   // send amount to backend and there, to order service
   sendToOrderBackend(cartToOrder: CartToOrder) {
     console.log(cartToOrder);
     return this.httpClient.post<CartToOrder>(this.urlSendToOrder, cartToOrder, this.httpOptions);
-      // .pipe(
-      //   catchError(this.utils.handleError)
-      // );
   }
 
 }

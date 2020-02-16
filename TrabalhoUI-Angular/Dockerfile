@@ -4,17 +4,23 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install -g @angular/cli@8.3.22
-RUN npm install
-RUN ng build --output-path=dist
+RUN npm install && \
+    npm run build
 
-FROM nginx:1.17.6-alpine
+#FROM nginx:alpine
 
-# Copy Angular application into nginx folder
-COPY --from=builder /app/dist /usr/share/nginx/html
+#COPY --from=builder /app/dist/* /usr/share/nginx/html/
 
-# expose port 80
-EXPOSE 80
+FROM nginx:alpine
 
-# run nginx
-CMD ["nginx", "-g", "daemon off;"]
+COPY --from=builder /app/dist/* /usr/share/nginx/html/
+
+EXPOSE 8080
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+RUN chown -R nginx /etc/nginx /var/run /run
+
+#support running as any user
+RUN chmod -R a+w /var/run /run /var/cache /var/cache/nginx
+
+#switch to nginx user by default
+USER 100
