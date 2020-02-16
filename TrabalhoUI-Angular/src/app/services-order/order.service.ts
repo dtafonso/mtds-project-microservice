@@ -11,7 +11,7 @@ export class OrderService {
 
   utils: Utils = new Utils();
 
-  urlGetOrder = 'http://loja-microservicos.info:8073/lastorder';
+  urlGetOrder = 'http://loja-microservicos.info:30074/lastorder';
 
   constructor(private httpClient: HttpClient) {
   }

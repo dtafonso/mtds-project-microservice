@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {Product} from '../models/product';
+import {Product} from '../models-products/product';
 import {Utils} from '../util/utils';
 
 @Injectable({
@@ -12,8 +12,8 @@ export class ProductService {
 
   utils: Utils = new Utils();
 
-  url = 'http://loja-microservicos.info:8071/products';
-  urlAddToCart = 'http://loja-microservicos.info:8071/product-rabbitmq/producer';
+  url = 'http://loja-microservicos.info:30071/products';
+  urlAddToCart = 'http://loja-microservicos.info:30075/product-rabbitmq/producer';
 
   // injetando o HttpClient
   constructor(private httpClient: HttpClient) {

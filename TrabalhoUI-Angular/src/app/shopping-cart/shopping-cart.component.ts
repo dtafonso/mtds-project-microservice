@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ShoppingCartService} from '../services/shopping-cart.service';
-import {Cart} from '../models/cart';
+import {ShoppingCartService} from '../services-cart/shopping-cart.service';
+import {Cart} from '../models-cart/cart';
 import {ProductCart} from '../models/product-cart.model';
 import {CartToOrder} from '../models/cart-to-order';
 import {JsonFileComponent} from '../json-file/json-file.component';

@@ -12,8 +12,8 @@ export class ShoppingCartService {
 
   utils: Utils = new Utils();
 
-  urlGetCart = 'http://loja-microservicos.info:8072/lastcart';
-  urlSendToOrder = 'http://loja-microservicos.info:8072/cart-rabbitmq/producer';
+  urlGetCart = 'http://loja-microservicos.info:30073/lastcart';
+  urlSendToOrder = 'http://loja-microservicos.info:30073/cart-rabbitmq/producer';
 
   constructor(private httpClient: HttpClient) {
   }

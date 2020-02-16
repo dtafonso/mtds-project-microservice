@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs/internal/Subscription';
-import {Order} from '../models/order';
-import {OrderService} from '../services/order.service';
+import {Order} from '../models-order/order';
+import {OrderService} from '../services-order/order.service';
 
 @Component({
   selector: 'app-orders',
@@ -19,7 +19,7 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit() {
     this.getOrder();
-    this.paid = false;
+    this.paid = true;
 
     /*  pay() {
        this.paid = true;

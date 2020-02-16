@@ -1,4 +1,4 @@
-import {Product} from './product';
+import {Product} from '../models-products/product';
 
 export class ProductOrder {
     product: Product;

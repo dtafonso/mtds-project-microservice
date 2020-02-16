@@ -1,0 +1,9 @@
+#atualizar a pasta
+git pull
+
+#colar ficheiros do angular que alteraste
+
+#fazer commit
+git add *
+git commit -m "atualizaçao Michele"
+git push
