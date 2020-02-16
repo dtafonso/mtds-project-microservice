@@ -83,6 +83,14 @@ mvn clean deploy
 mvnw clean package
 
 
+##Angular
+#Correr da pasta de ficheiros
+npm install
+npm start
+#mudar de porta, p.ex.: porta 4301
+npm start -- --port 4301
+
+
 ### DOCKER ###
 # "cd" na pasta onde está o docker file
 # criar container com aplicação JAVA

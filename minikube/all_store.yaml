@@ -175,22 +175,61 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: product-bk
+  name: productselect-bk
   labels:
-    app: product-bk
+    app: productselect-bk
 spec:
   containers:
-  - image: dafonso/product-bk:r0
-    name: product-bk
+  - image: dafonso/productselect:r0
+    name: productselect-bk
 
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: productbk
+  name: productselectbk
 spec:
   selector:
-    app: product-bk
+    app: productselect-bk
+  ports:
+  - port: 8074
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: productselectbk-ext
+spec:
+  selector:
+    app: productselect-bk
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8074
+      nodePort: 30075
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: productlist-bk
+  labels:
+    app: productlist-bk
+spec:
+  containers:
+  - image: dafonso/productlist:r0
+    name: productlist-bk
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: productlistbk
+spec:
+  selector:
+    app: productlist-bk
   ports:
   - port: 8071
   type: ClusterIP
@@ -199,10 +238,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: productbk-ext
+  name: productlistbk-ext
 spec:
   selector:
-    app: product-bk
+    app: productlist-bk
   ports:
     - name: http
       protocol: TCP

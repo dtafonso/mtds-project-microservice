@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: productselect-bk
+  labels:
+    app: productselect-bk
+spec:
+  containers:
+  - image: dafonso/productselect:r0
+    name: productselect-bk
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: productselectbk
+spec:
+  selector:
+    app: productselect-bk
+  ports:
+  - port: 8074
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: productselectbk-ext
+spec:
+  selector:
+    app: productselect-bk
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8074
+      nodePort: 30075
+  type: NodePort

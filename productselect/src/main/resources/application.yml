@@ -1,0 +1,38 @@
+server:
+  port: 8074
+spring:
+  application:
+    name: productselect
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+  main:
+    allow-bean-definition-overriding: true
+
+  security:
+    basic:
+      enable: false
+    ignored: /**
+
+#  jpa:
+#    database: MYSQL
+#    hibernate:
+#      ddl-auto: update
+
+  jmx:
+    enabled: false
+
+#  datasource:
+#    url: jdbc:mysql://sql-product-pod:3306/productdb?createDatabaseIfNotExist=true&autoReconnect=true
+#    username: root
+#    password: root
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+product-selection-queue:
+  rabbitmq:
+    exchange: product-selection.exchange
+    queue: product-selection.queue
+    routingkey: product-selection.routingkey
