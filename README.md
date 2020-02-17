@@ -2,7 +2,9 @@
 Microservices Store Concept on Kubernetes
 
 MTSDS - MEI - ESTG 2019/2020
+
 David Afonso - 8180011
+
 Michele Freitas - 8180014
 
 
