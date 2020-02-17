@@ -6,7 +6,7 @@ metadata:
     app: order-bk
 spec:
   containers:
-  - image: dafonso/order-bk:r0
+  - image: dafonso/order-bk:r1
     name: order-bk
 
 ---

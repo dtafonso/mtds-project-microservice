@@ -32,9 +32,9 @@ orderqueue:
     queue: order.queue
     routingkey: order.routingkey
 
-cartqueue:
+cartconfirmqueue:
   rabbitmq:
-    exchange: cart.exchange
-    queue: cart.queue
-    routingkey: cart.routingkey
+    exchange: cartconfirm.exchange
+    queue: cartconfirm.queue
+    routingkey: cartconfirm.routingkey
 

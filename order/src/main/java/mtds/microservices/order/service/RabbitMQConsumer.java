@@ -19,7 +19,7 @@ public class RabbitMQConsumer {
     @Autowired
     RabbitMQConfig rabbitMQConfig;
 
-    @RabbitListener(queues = "${cartqueue.rabbitmq.queue}")
+    @RabbitListener(queues = "${cartconfirmqueue.rabbitmq.queue}")
     public void recievedMessage(CartOrder cartOrder) {
 
         try {
