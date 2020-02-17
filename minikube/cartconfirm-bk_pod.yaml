@@ -6,7 +6,7 @@ metadata:
     app: cartconfirm-bk
 spec:
   containers:
-  - image: dafonso/cartconfirm:r1
+  - image: dafonso/cartconfirm:r2
     name: cartconfirm-bk
     resources:
       limits:
