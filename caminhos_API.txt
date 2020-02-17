@@ -1,0 +1,10 @@
+Product List
+
+http://loja-microservicos.info:30071/products
+
+
+
+Product select
+
+http://loja-microservicos.info:30075/product-selector-rabbitmq/producer
+

@@ -119,7 +119,7 @@ metadata:
   name: sql-cart-ext
 spec:
   selector:
-    app: sql
+    app: sql-cart
   ports:
     - name: http
       protocol: TCP
@@ -253,22 +253,22 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: cart-bk
+  name: cartloader-bk
   labels:
-    app: cart-bk
+    app: cartloader-bk
 spec:
   containers:
-  - image: dafonso/cart-bk:r0
-    name: cart-bk
+  - image: dafonso/cartloader:r1
+    name: cartloader-bk
 
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: cartbk
+  name: cartloaderbk
 spec:
   selector:
-    app: cart-bk
+    app: cartloader-bk
   ports:
   - port: 8072
   type: ClusterIP
@@ -277,15 +277,54 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: cartbk-ext
+  name: cartloaderbk-ext
 spec:
   selector:
-    app: cart-bk
+    app: cartloader-bk
   ports:
     - name: http
       protocol: TCP
       port: 8072
       nodePort: 30073
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cartconfirm-bk
+  labels:
+    app: cartconfirm-bk
+spec:
+  containers:
+  - image: dafonso/cartconfirm:r0
+    name: cartconfirm-bk
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: cartconfirmbk
+spec:
+  selector:
+    app: cartconfirm-bk
+  ports:
+  - port: 8076
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: cartconfirmbk-ext
+spec:
+  selector:
+    app: cartconfirm-bk
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8076
+      nodePort: 30076
   type: NodePort
 
 ---
@@ -305,7 +344,7 @@ spec:
     spec:
       containers:
         - name: store-ui
-          image: dafonso/store-ui:r0
+          image: dafonso/store-ui:r1
 
 ---
 kind: Service

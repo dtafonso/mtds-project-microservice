@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: store-ui
-          image: dafonso/store-ui:r0
+          image: dafonso/store-ui:r3
 
 ---
 kind: Service

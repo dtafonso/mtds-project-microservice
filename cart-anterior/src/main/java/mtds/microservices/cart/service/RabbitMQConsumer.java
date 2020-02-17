@@ -1,7 +1,7 @@
-package mtds.microservices.cartloader.service;
+package mtds.microservices.cart.service;
 
-import mtds.microservices.cartloader.config.RabbitMQConfig;
-import mtds.microservices.cartloader.model.Product;
+import mtds.microservices.cart.config.RabbitMQConfig;
+import mtds.microservices.cart.model.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -18,19 +18,19 @@ public class RabbitMQConsumer {
 
     private static final Logger log = LoggerFactory.getLogger(RabbitMQConsumer.class);
 
-   @Autowired
+    @Autowired
     RabbitMQConfig rabbitMQConfig;
 
     @RabbitListener(queues = "${productselectionqueue.rabbitmq.queue}")
     public void recievedMessage(List<Product> selectedProducts) {
-        System.out.println("Received Message From RabbitMQ selected product queue: " + selectedProducts);
+        System.out.println("Recieved Message From RabbitMQ product selection queue: " + selectedProducts);
 
         try {
 
             this.cartService.insert(selectedProducts);
 
         } catch (Exception ex) {
-            log.error("Error trying to save selected product list in cart database. Bypassing message requeue {}", ex);
+            log.error("Error trying to save product in cart database. Bypassing message requeue {}", ex);
         }
     }
 }

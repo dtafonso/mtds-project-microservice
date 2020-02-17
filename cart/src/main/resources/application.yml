@@ -27,14 +27,14 @@ spring:
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-cartqueue:
+cart-confirm-queue:
   rabbitmq:
-    exchange: cart.exchange
-    queue: cart.queue
-    routingkey: cart.routingkey
+    exchange: cart-confirm.exchange
+    queue: cart-confirm.queue
+    routingkey: cart-confirm.routingkey
 
-productqueue:
+product-selection-queue:
   rabbitmq:
-    exchange: product.exchange
-    queue: product.queue
-    routingkey: product.routingkey
+    exchange: product-selection.exchange
+    queue: product-selection.queue
+    routingkey: product-selection.routingkey

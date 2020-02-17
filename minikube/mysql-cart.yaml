@@ -33,7 +33,7 @@ metadata:
   name: sql-cart-ext
 spec:
   selector:
-    app: sql
+    app: sql-cart
   ports:
     - name: http
       protocol: TCP

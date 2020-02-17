@@ -21,9 +21,9 @@ public class RabbitMQConsumer {
     @Autowired
     RabbitMQConfig rabbitMQConfig;
 
-    @RabbitListener(queues = "${productqueue.rabbitmq.queue}")
+    @RabbitListener(queues = "${product-selection-queue.rabbitmq.queue}")
     public void recievedMessage(List<Product> selectedProducts) {
-        System.out.println("Recieved Message From RabbitMQ product queue: " + selectedProducts);
+        System.out.println("Recieved Message From RabbitMQ selected product queue: " + selectedProducts);
 
         try {
 

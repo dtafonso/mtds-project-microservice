@@ -1,4 +1,4 @@
-package mtds.microservices.cartloader.config;
+package mtds.microservices.cart.config;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Binding;
@@ -16,13 +16,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    @Value("${productselectionqueue.rabbitmq.queue}")
+    @Value("${cartconfirmqueue.rabbitmq.queue}")
     String queueName;
 
-    @Value("${productselectionqueue.rabbitmq.exchange}")
+    @Value("${cartconfirmqueue.rabbitmq.exchange}")
     String exchange;
 
-    @Value("${productselectionqueue.rabbitmq.routingkey}")
+    @Value("${cartconfirmqueue.rabbitmq.routingkey}")
     private String routingkey;
 
     @Bean

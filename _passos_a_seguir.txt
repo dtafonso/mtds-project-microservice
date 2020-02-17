@@ -116,7 +116,8 @@ minikube dashboard (abre página no browser com dasboard das atividades correndo
 kubectl exec webapppodenamegoeshere ls  (lista conteúdo na raiz do ambiente deployed)
 kubectl -it exec webapps sh  (abre um terminal bash do ambiente deployed)
 kubectl cluster-info (check the information of our cluster)
-kubectl svc nomeDoPod (abre inspeção do pod)
+kubectl describe svc nomeDoServico (abre inspeção do serviço)
+kubectl describe po nomeDoPod (abre inspeção do pod)
 
 #MINIKUBE - controlo de versões
 kubectl apply -f webapp

@@ -14,10 +14,10 @@ public class RabbitMQSender {
     @Autowired
     private AmqpTemplate rabbitTemplate;
 
-    @Value("${product-selection-queue.rabbitmq.exchange}")
+    @Value("${productselectionqueue.rabbitmq.exchange}")
     private String exchange;
 
-    @Value("${product-selection-queue.rabbitmq.routingkey}")
+    @Value("${productselectionqueue.rabbitmq.routingkey}")
     private String routingkey;
 
     public void send(List<Product> productsList) {

@@ -41,8 +41,8 @@ spring:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 
 
-product-selection-queue:
+productselectionqueue:
   rabbitmq:
-    exchange: product-selection.exchange
-    queue: product-selection.queue
-    routingkey: product-selection.routingkey
+    exchange: productselection.exchange
+    queue: productselection.queue
+    routingkey: productselection.routingkey

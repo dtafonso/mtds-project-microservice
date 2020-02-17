@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cartconfirm-bk
+  labels:
+    app: cartconfirm-bk
+spec:
+  containers:
+  - image: dafonso/cartconfirm:r1
+    name: cartconfirm-bk
+    resources:
+      limits:
+        cpu: "1"
+      requests:
+        cpu: "0.5"
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: cartconfirmbk
+spec:
+  selector:
+    app: cartconfirm-bk
+  ports:
+  - port: 8076
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: cartconfirmbk-ext
+spec:
+  selector:
+    app: cartconfirm-bk
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8076
+      nodePort: 30076
+  type: NodePort

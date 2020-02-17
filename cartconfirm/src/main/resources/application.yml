@@ -29,9 +29,9 @@ spring:
   jmx:
     enabled: false
 
-cart-confirm-queue:
+cartconfirmqueue:
   rabbitmq:
-    exchange: cart-confirm.exchange
-    queue: cart-confirm.queue
-    routingkey: cart-confirm.routingkey
+    exchange: cartconfirm.exchange
+    queue: cartconfirm.queue
+    routingkey: cartconfirm.routingkey
 

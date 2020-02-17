@@ -8,7 +8,7 @@ public class ResponseFactory {
     private Response response;
 
     public ResponseFactory build(Object data) {
-        this.response = new Response(true, "Message sent to the RabbitMQ product queue Successfully", data);
+        this.response = new Response(true, "Message sent to the RabbitMQ cart confirmation queue Successfully", data);
         return this;
     }
 
