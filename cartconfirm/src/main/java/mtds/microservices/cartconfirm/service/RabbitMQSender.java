@@ -12,10 +12,10 @@ public class RabbitMQSender {
     @Autowired
     private AmqpTemplate rabbitTemplate;
 
-    @Value("${cart-confirm-queue.rabbitmq.exchange}")
+    @Value("${cartconfirmqueue.rabbitmq.exchange}")
     private String exchange;
 
-    @Value("${cart-confirm-queue.rabbitmq.routingkey}")
+    @Value("${cartconfirmqueue.rabbitmq.routingkey}")
     private String routingkey;
 
     public void send(CartOrder cartOrder) {
