@@ -1,6 +1,11 @@
 # MTSDS Store
 Microservices Store Concept on Kubernetes
 
+MTSDS - MEI - ESTG 2019/2020
+David Afonso - 8180011
+Michele Freitas - 8180014
+
+
 This Repository continues the work of wdcunha's repository:
 https://github.com/wdcunha/mtds-project-microservice
 
