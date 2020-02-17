@@ -1,0 +1,40 @@
+server:
+  port: 8072
+spring:
+  application:
+    name: user-service
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+  main:
+    allow-bean-definition-overriding: true
+  security:
+    basic:
+      enable: false
+    ignored: /**
+
+  jpa:
+    database: MYSQL
+    hibernate:
+      ddl-auto: update
+  jmx:
+    enabled: false
+  datasource:
+    url: jdbc:mysql://sql-user-pod:3306/userdb?createDatabaseIfNotExist=true&autoReconnect=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+userqueue:
+  rabbitmq:
+    exchange: user.exchange
+    queue: user.queue
+    routingkey: user.routingkey
+
+productqueue:
+  rabbitmq:
+    exchange: product.exchange
+    queue: product.queue
+    routingkey: product.routingkey
