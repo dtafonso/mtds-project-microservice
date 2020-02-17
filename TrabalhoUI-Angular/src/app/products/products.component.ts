@@ -35,7 +35,6 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-
   // call service to send selected products to backend.
   sendToCart() {
     this.productService.sendSelProdToBackend(this.selectedProducts).subscribe(x => console.log(x));

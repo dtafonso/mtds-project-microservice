@@ -43,6 +43,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     this.shoppingCart.sendToOrderBackend(this.cartToOrder).subscribe(x => console.log('amount to order: ' + x));
   }
 
+  // calcula o valor total.
   private calculateAmount(products: ProductCart[]): number {
     let sum = 0;
     products.forEach(value => {

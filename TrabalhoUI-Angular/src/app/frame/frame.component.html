@@ -1,3 +1,12 @@
+<body>
+<div style="text-align:center;">
+  <img center src="./assets/img/logo2.png" style="width:100%"/>
+</div>
+</body>
+<div class="col-12">
+  <a routerLink="/shopping-cart" class="btn btn-warning" (click)="sendToCart()">Checkout to Cart</a>
+</div>
+
 
 <div class= "container">
   <div class="card text-white bg-info mb-3" style="max-width: 50rem;height:25rem;">
@@ -17,6 +26,23 @@
 
       <a routerLink="/order" class="btn btn-warning" (click)="sendCartToOrder()">Go to Order</a>
 
+    </div>
+  </div>
+</div>
+
+
+<div class="row card-deck">
+    <div class="col-lg-4 col-md-6 mb-4" *ngFor="let product of products">
+      <div class="card text-center">
+        <div class="card-header">
+          <h4>{{product.productName}}</h4>
+        </div>
+        <div class="card-body">
+          <a href="#"><img class="card-img-top" src={{product.pictureUrl}} alt=""></a>
+          <h5 class="card-title">${{product.price}}</h5>
+        </div>
+      <div>
+    </div>
     </div>
   </div>
 </div>

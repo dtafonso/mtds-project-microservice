@@ -15,6 +15,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { RegisterComponent } from './register/register.component';
 import { JsonFileComponent } from './json-file/json-file.component';
 import {HttpModule} from '@angular/http';
+import { FrameComponent } from './frame/frame.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {HttpModule} from '@angular/http';
     LoginComponent,
     OrdersComponent,
     RegisterComponent,
-    JsonFileComponent
+    JsonFileComponent,
+    FrameComponent
   ],
   imports: [
     BrowserModule,
