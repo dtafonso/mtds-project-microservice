@@ -1,0 +1,43 @@
+server:
+  port: 8073
+spring:
+  application:
+    name: order-service
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+  main:
+    allow-bean-definition-overriding: true
+  security:
+    basic:
+      enable: false
+    ignored: /**
+
+  jmx:
+    enabled: false
+
+  h2:
+    console:
+      enabled: true
+      path: /h2
+
+  datasource:
+    url: jdbc:h2:file:~/test
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+
+orderqueue:
+  rabbitmq:
+    exchange: order.exchange
+    queue: order.queue
+    routingkey: order.routingkey
+
+cartconfirmqueue:
+  rabbitmq:
+    exchange: cartconfirm.exchange
+    queue: cartconfirm.queue
+    routingkey: cartconfirm.routingkey
+
