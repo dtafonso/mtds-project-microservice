@@ -13,14 +13,10 @@ echo "mySQL pod installed"
 kubectl get all
 
 #Install Store Pods
-kubectl apply -f https://github.com/dtafonso/mei-mtsds-store/raw/master/minikube/store.yaml
-kubectl apply -f https://github.com/dtafonso/mei-mtsds-store/raw/master/minikube/product-bk_pod.yaml
-kubectl apply -f https://github.com/dtafonso/mei-mtsds-store/raw/master/minikube/cart-bk_pod.yaml
-kubectl apply -f https://github.com/dtafonso/mei-mtsds-store/raw/master/minikube/order-bk_pod.yaml
+kubectl apply -f https://raw.githubusercontent.com/dtafonso/mtsds-microservices-store/master/minikube/_all_store_pods.yaml
 echo "Store pods installed"
 
 #Activate ingress
 minikube addons enable ingress
-kubectl apply -f https://github.com/dtafonso/mei-mtsds-store/raw/master/minikube/ingress.yaml
 
 echo "**** End preparing pods"
