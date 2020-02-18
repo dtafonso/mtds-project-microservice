@@ -8,19 +8,7 @@ kubectl get all
 
 minikube addons enable ingress
 
-kubectl apply -f mysql.yaml
-
-kubectl apply -f rabbitmq.yaml
-
-kubectl apply -f store.yaml
-
-kubectl apply -f product-bk_pod.yaml
-
-kubectl apply -f cart-bk_pod.yaml
-
-kubectl apply -f order-bk_pod.yaml
-
-kubectl apply -f ingress.yaml
+kubectl apply -f _all_store_pods
 
 kubectl get all
 

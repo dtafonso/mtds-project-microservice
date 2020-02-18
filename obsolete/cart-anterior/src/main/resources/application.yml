@@ -1,0 +1,41 @@
+server:
+  port: 8072
+spring:
+  application:
+    name: cart-service
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+  main:
+    allow-bean-definition-overriding: true
+  security:
+    basic:
+      enable: false
+    ignored: /**
+  jpa:
+    database: MYSQL
+    hibernate:
+      ddl-auto: update
+
+  jmx:
+      enabled: false
+
+  datasource:
+    url: jdbc:mysql://sql-cart-pod:3306/cartdb?createDatabaseIfNotExist=true&autoReconnect=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+cartconfirmqueue:
+  rabbitmq:
+    exchange: cartconfirm.exchange
+    queue: cartconfirm.queue
+    routingkey: cartconfirm.routingkey
+
+productselectionqueue:
+  rabbitmq:
+    exchange: productselection.exchange
+    queue: productselection.queue
+    routingkey: productselection.routingkey

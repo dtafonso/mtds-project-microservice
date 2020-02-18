@@ -1,10 +1,14 @@
-Product List
+Productlist
+  url = 'http://loja-microservicos.info:30071/products';
 
-http://loja-microservicos.info:30071/products
+ProductSelect
+  urlAddToCart = 'http://loja-microservicos.info:30075/product-selector-rabbitmq/producer';
 
+CartLoader
+  urlGetCart = 'http://loja-microservicos.info:30073/lastcart';
 
+CartConfirm
+  urlSendToOrder = 'http://loja-microservicos.info:30076/cart-rabbitmq/producer';
 
-Product select
-
-http://loja-microservicos.info:30075/product-selector-rabbitmq/producer
-
+Order
+urlGetOrder = 'http://loja-microservicos.info:30074/lastorder';

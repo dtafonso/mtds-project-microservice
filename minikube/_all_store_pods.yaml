@@ -1,0 +1,351 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rabbitmq
+  labels:
+    app: rabbitmq
+spec:
+  containers:
+  - image: rabbitmq:3-management
+    name: rabbitmq
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: message-queue-external
+spec:
+  selector:
+    app: rabbitmq
+  ports:
+    - name: http
+      protocol: TCP
+      port: 15672
+      nodePort: 30072
+  type: NodePort
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: rabbitmq
+spec:
+  selector:
+    app: rabbitmq
+  ports:
+  - name: port1
+    port: 5672
+  - name: port2
+    port: 15672
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sql-product
+  labels:
+    app: sql-product
+spec:
+  containers:
+  - image: mysql
+    name: sql-product
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: root
+    - name: MYSQL_DATABASE
+      value: productdb
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: sql-product-pod
+spec:
+  selector:
+    app: sql-product
+  ports:
+  - port: 3306
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: sql-product-ext
+spec:
+  selector:
+    app: sql-product
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3306
+      nodePort: 30306
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: store-ui
+spec:
+  selector:
+    matchLabels:
+      app: store-ui
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: store-ui
+    spec:
+      containers:
+        - name: store-ui
+          image: dafonso/store-ui:r1
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: store-ui-int
+spec:
+  selector:
+    app: store-ui
+  ports:
+  - port: 8080
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: store-ui-ext
+spec:
+  selector:
+    app: store-ui
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      nodePort: 30091
+    - name: http2
+      protocol: TCP
+      port: 8080
+      nodePort: 30092
+  type: NodePort
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-store
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  backend:
+    serviceName: store-ui-ext
+    servicePort: 8080
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: productlist-bk
+  labels:
+    app: productlist-bk
+spec:
+  containers:
+  - image: dafonso/productlist:r0
+    name: productlist-bk
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: productlistbk
+spec:
+  selector:
+    app: productlist-bk
+  ports:
+  - port: 8071
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: productlistbk-ext
+spec:
+  selector:
+    app: productlist-bk
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8071
+      nodePort: 30071
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: productselect-bk
+  labels:
+    app: productselect-bk
+spec:
+  containers:
+  - image: dafonso/productselect:r2
+    name: productselect-bk
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: productselectbk
+spec:
+  selector:
+    app: productselect-bk
+  ports:
+  - port: 8074
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: productselectbk-ext
+spec:
+  selector:
+    app: productselect-bk
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8074
+      nodePort: 30075
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cartloader-bk
+  labels:
+    app: cartloader-bk
+spec:
+  containers:
+  - image: dafonso/cartloader:h2
+    name: cartloader-bk
+    resources:
+      limits:
+        cpu: "1"
+      requests:
+        cpu: "0.5"
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: cartloaderbk
+spec:
+  selector:
+    app: cartloader-bk
+  ports:
+  - port: 8072
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: cartloaderbk-ext
+spec:
+  selector:
+    app: cartloader-bk
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8072
+      nodePort: 30073
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cartconfirm-bk
+  labels:
+    app: cartconfirm-bk
+spec:
+  containers:
+  - image: dafonso/cartconfirm:r2
+    name: cartconfirm-bk
+    resources:
+      limits:
+        cpu: "1"
+      requests:
+        cpu: "0.5"
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: cartconfirmbk
+spec:
+  selector:
+    app: cartconfirm-bk
+  ports:
+  - port: 8076
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: cartconfirmbk-ext
+spec:
+  selector:
+    app: cartconfirm-bk
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8076
+      nodePort: 30076
+  type: NodePort
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: order-bk
+  labels:
+    app: order-bk
+spec:
+  containers:
+  - image: dafonso/order-bk:h2
+    name: order-bk
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: orderbk
+spec:
+  selector:
+    app: order-bk
+  ports:
+  - port: 8073
+  type: ClusterIP
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: order-ext
+spec:
+  selector:
+    app: order-bk
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8073
+      nodePort: 30074
+  type: NodePort

@@ -139,3 +139,14 @@ kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h 
 docker run -p 5672:5672 -p 15672:15672 rabbitmq:3-managment
 #mySQL
 docker run mysql
+
+
+#atualizar a pasta
+git pull
+
+#colar ficheiros do angular que alteraste
+
+#fazer commit
+git add *
+git commit -m "atualizaçao Michele"
+git push
